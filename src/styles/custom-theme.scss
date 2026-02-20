@@ -1,0 +1,446 @@
+/* Hide top-right login button on homepage before login (Trema-specific fix) */
+body.pagelayout-frontpage.notloggedin a[href*="/login/index.php"] {
+  display: none !important;
+}
+
+/*  Safely hide the top white header ribbon on homepage  */
+body.pagelayout-frontpage .fixed-top,
+body.pagelayout-frontpage header#page-header,
+body.pagelayout-frontpage .navbar {
+  display: none !important;
+}
+
+/* ========== LOGIN PAGE STYLING (Trema) ========== */
+
+
+/* 1 ─── Keep full background image or color */
+body#page-login-index {
+  background-size: cover !important;
+  background-position: center center !important;
+  background-repeat: no-repeat !important;
+  background-attachment: fixed !important;
+  min-height: 100vh !important;
+}
+
+/* 2 ─── Remove boxed layout limits and center login box */
+body#page-login-index #page,
+body#page-login-index #page-content,
+body#page-login-index #region-main-box,
+body#page-login-index #region-main {
+  background: transparent !important;
+  width: 100% !important;
+  max-width: 100% !important;
+  margin: 0 !important;
+  padding: 0 !important;
+  box-shadow: none !important;
+
+  display: flex !important;
+  justify-content: center !important;
+  align-items: center !important;
+  min-height: 100vh !important;
+  position: relative !important;
+}
+
+
+/* 🔹 Hide only the login heading text */
+#page-login-index h2.login-heading {
+  font-size: 0 !important;   /* hides the text */
+  line-height: 0 !important;
+  margin: 0 !important;
+  padding: 0 !important;
+}
+
+/* 🔹 Keep logo safe (do not hide it) */
+#page-login-index h2.login-heading img {
+  font-size: initial !important;
+  line-height: initial !important;
+  margin: initial !important;
+  padding: initial !important;
+}
+
+/* 🔹 Hide "Cookies notice" button */
+#page-login-index .btn-cookie {
+  display: none !important;
+}
+
+/* 🔹 Style the login box */
+#page-login-index .loginform {
+ background: rgba(255, 255, 255, 1); /* white with 100% opacity */
+  border-radius: 20px;                  /* rounded corners */
+  padding: 30px;                        /* space inside */
+  box-shadow: 0 6px 20px rgba(0, 0, 0, 0.15); /* soft shadow */
+  max-width: 450px;                     /* limit width */
+  margin: 40px auto;                    /* center horizontally */
+}
+
+/* 🔹 Ensure logo is not squished */
+#page-login-index .login-logo img {
+  max-width: 200px;
+  margin: 0 auto 20px;
+  display: block;
+}
+
+/* 🔹 Hide unwanted "Log in" text & cookies button */
+#page-login-index h2.login-heading {
+  display: none !important;
+}
+#page-login-index .btn-cookie {
+  display: none !important;
+}
+
+/* 🔹 Remove the square outer container */
+#page-login-index .login-container {
+  background: transparent !important;
+  border: none !important;
+  box-shadow: none !important;
+  padding: 0 !important;
+}
+
+/* 🔹 Enlarge login logo  */
+#page-login-index #loginlogo img {
+  max-width: 80% !important;  
+  height: auto !important;      /* Keep aspect ratio */
+  display: block;
+  margin: 0 auto;               /* Keep it centered */
+}
+
+
+/* Ensure all form input fields have rounded corners consistently */
+#page-login-index input[type="text"],
+#page-login-index input[type="password"] {
+  border-radius: 0.5rem !important; /* Adjust as needed to match username box */
+  padding: 0.6rem 1rem !important;
+  box-shadow: none !important;
+  border: 1px solid #ccc !important;
+}
+
+// :large_blue_diamond: Blue color for Completion Progress block header
+.block_completion_progress h3.card-title {
+  background: linear-gradient(to right, #1A184F, #2D2A7B);
+  -webkit-background-clip: text;
+  -webkit-text-fill-color: transparent;
+  background-clip: text;
+  text-fill-color: transparent;
+  font-size: 1.9rem !important;
+  font-weight: 700 !important;
+  font-family: 'Poppins' !important;
+  margin-bottom: 0.5rem;
+}
+
+
+
+/* === Apply deep violet styling to ALL .btn-primary buttons site-wide === */
+
+:root {
+  --primary: #2d2a7b;
+  --primary-hover: #1a184f;
+}
+
+.btn.btn-primary,
+input[type="submit"].btn-primary,
+button.btn-primary,
+a.btn.btn-primary {
+  background-color: var(--primary) !important;
+  color: #ffffff !important;
+  border: none !important;
+  box-shadow: none !important;
+  font-weight: 600 !important;
+  padding: 0.2rem 1.2rem !important;
+  border-radius: 6px !important;
+  transition: background-color 0.3s ease;
+}
+
+.btn.btn-primary:hover,
+.btn.btn-primary:focus,
+.btn.btn-primary:active,
+input[type="submit"].btn-primary:hover,
+button.btn-primary:hover,
+a.btn.btn-primary:hover {
+  background-color: var(--primary-hover) !important;
+  color: #ffffff !important;
+  outline: none !important;
+}
+
+/* Remove the main H1 heading inside page header */
+#page-header > div > div.d-flex.align-items-center > div.me-auto > div > div > h1 {
+  display: none !important;
+}
+
+/* Style the heading with dark-to-light gradient text */
+#instance-5-header {
+  font-weight: 700 !important;
+  font-size: 1.8em !important;
+  text-align: left !important;
+
+  background: linear-gradient(to right, #1A184F, #2D2A7B);
+  -webkit-background-clip: text;
+  -webkit-text-fill-color: transparent;
+
+  background-clip: text;
+  color: transparent;
+}
+
+/* Style the stretched quiz links to look like buttons */
+.path-course-view .modtype_quiz .stretched-link {
+  display: inline-block;
+  background-color: #2d2a7b;
+  color: #ffffff !important;
+  padding: 10px 20px;
+  font-size: 1em;
+  font-weight: 600;
+  border-radius: 8px;
+  text-decoration: none !important;
+  transition: background-color 0.3s ease, transform 0.2s ease;
+  margin: 10px 0;
+  width: auto;
+}
+
+.path-course-view .modtype_quiz .stretched-link:hover {
+  background-color: #5d57f4;
+}
+
+/* Optional: Hide duplicate icons if needed */
+.path-course-view .modtype_quiz .activityiconcontainer img + img {
+  display: none;
+}
+
+
+/* Course Page Dropdowns: Default state: white background, deep violet border and text */
+.btn-outline-secondary.dropdown-toggle {
+  background-color: #ffffff !important;
+  color: #1a184f !important;
+  border-color: #1a184f !important;
+  font-family: 'Poppins' !important;
+}
+
+/* Hover, focus, and open state: deep violet background, white text */
+.btn-outline-secondary.dropdown-toggle:hover,
+.btn-outline-secondary.dropdown-toggle:focus,
+.btn-outline-secondary.dropdown-toggle:active,
+.btn-outline-secondary.show.dropdown-toggle {
+  background-color: #1A184F !important;
+  color: #ffffff !important;
+  border-color: #1A184F !important;
+}
+
+/* Text within the span follows the same styling */
+.btn-outline-secondary.dropdown-toggle span {
+  color: inherit !important;
+  font-family: 'Poppins' !important;
+}
+
+/* Optional: dropdown menu items text and highlight */
+.dropdown-menu a.dropdown-item {
+  font-family: 'Poppins' !important;
+  color: #1A184F !important;
+}
+
+.dropdown-menu a.dropdown-item:hover,
+.dropdown-menu a.dropdown-item:focus {
+  background-color: #1a184f !important;
+  color: #1A184F !important;
+}
+
+
+/* === Course Index Styling for Completion Section as a Button === */
+/* Replace 1606 with the actual module ID for your completion section */
+a.courseindex-link[href="#module-1606"] {
+  background: #5D57F4;
+  color: #ffffff !important;
+  border-radius: 8px;
+  padding: 8px 16px;
+  font-family: 'Poppins';
+  font-size: 0.95em;
+  font-weight: 600;
+  text-align: center;
+  pointer-events: none;
+  cursor: default;
+  border: 1px solid #5D57F4;
+  text-decoration: none;
+  transition: background 0.3s ease;
+}
+
+a.courseindex-link[href="#module-1606"]:hover {
+  background: #2D2A7B;
+}
+
+/* ----------------------------------------------*/
+
+/*--------------------------------------*/
+/* ✅ Fix dropdown hover readability: force white text on hover */
+.dropdown-menu a.dropdown-item:hover,
+.dropdown-menu a.dropdown-item:focus,
+.dropdown-menu a.dropdown-item:active {
+  color: #ffffff !important; /* Ensures text stays visible on blue hover background */
+}
+
+/* remove preferences breadcrumb from my edit profile page */
+.breadcrumb a[href*="preferences.php"] {
+    pointer-events: none;
+    color: #999 !important;
+    text-decoration: none;
+    cursor: default;
+}
+
+/* Hide blog and forum links from profile */
+.profile_tree a[href*="/blog/index.php"],
+.profile_tree a[href*="/mod/forum/user.php"],
+.profile_tree a[href*="/mod/forum/discuss.php"] {
+    display: none !important;
+}
+
+/* Hide the Edit mode toggle form for all users except Admins 
+body:not(.role-admin) form[action*="editmode.php"] {
+  display: none !important;
+}
+*/
+
+/* Hide activity count displayed on each section bar of course */
+.section-summary-activities.d-flex > div:first-child {
+  display: none !important;
+}
+
+
+.login-support-link {
+  text-align: center;
+  margin-top: 15px;
+  font-family: 'Poppins';
+}
+
+.login-support-link a {
+  color: #2D2A7B; /* violet theme */
+  font-weight: 600;
+  text-decoration: none;
+  transition: color 0.2s ease;
+}
+
+.login-support-link a:hover {
+  color: #5D57F4;
+  text-decoration: underline;
+}
+
+.support-banner {
+  background: linear-gradient(to right, #5D57F4, #2D2A7B);
+  border-radius: 12px;
+  margin-bottom: 1rem;
+}
+
+a.coursename:hover span[aria-hidden="true"] {
+  font-weight: 700 !important; /* Make text bold on hover */
+}
+
+.block_html.card,
+.block_html.card .card-body {
+  background: none !important;
+  border: none !important;
+  box-shadow: none !important;
+  padding: 0 !important;
+  margin: 0 !important;
+  height: 100% !important;
+}
+.block_completion_progress {
+  background: none !important;
+  border: none !important;
+}
+.block_completion_progress .card-body {
+  background: none !important;
+  border: none !important;
+}
+.block-controls.float-end.header {
+  float: none !important;
+  display: flex !important;
+  justify-content: flex-end;
+  width: 100%;
+  margin-bottom: 10px;
+}
+#page .block.block_vexturintroduction {
+    border: none;
+    border-top: 2px solid #2D2A7B;
+    border-radius: 12px;
+    overflow: hidden;
+}
+
+/* ===== FIX INVERTED PASSWORD VISIBILITY ICON  ===== */
+
+/* ========= UNIFORM USERNAME + PASSWORD FIELDS ========= */
+
+/* Input group wrapper */
+#page-login-index .input-group {
+  position: relative;
+}
+
+/* FORCE IDENTICAL RADIUS ON ALL INPUTS */
+#page-login-index input[type="text"],
+#page-login-index input[type="password"] {
+  border: 1px solid #ccc !important;
+  border-radius: 12px !important;
+
+  /* Force ALL corners explicitly */
+  border-top-left-radius: 12px !important;
+  border-top-right-radius: 12px !important;
+  border-bottom-left-radius: 12px !important;
+  border-bottom-right-radius: 12px !important;
+
+  padding: 0.6rem 1rem !important;
+  padding-right: 44px !important; /* space for eye */
+  box-shadow: none !important;
+}
+
+/* REMOVE ALL BOOTSTRAP INPUT-GROUP CORNER OVERRIDES */
+#page-login-index .input-group > .form-control:not(:last-child),
+#page-login-index .input-group > .form-control:not(:first-child) {
+  border-radius: 12px !important;
+}
+
+/* ========= EYE INSIDE PASSWORD FIELD ========= */
+#page-login-index .toggle-sensitive-btn {
+  position: absolute !important;
+  right: 10px !important;
+  top: 50% !important;
+  transform: translateY(-50%) !important;
+
+  background: transparent !important;
+  border: none !important;
+  padding: 0 !important;
+
+  z-index: 10 !important;
+}
+
+/* Remove button focus border */
+#page-login-index .toggle-sensitive-btn:focus,
+#page-login-index .toggle-sensitive-btn:active {
+  outline: none !important;
+  box-shadow: none !important;
+  border: none !important;
+}
+
+/* ========= ICON LOGIC FIX  ========= */
+/* Eye = visible | Eye-slash = hidden */
+
+/* Moodle shows fa-eye when hidden → force to eye-slash */
+#page-login-index .toggle-sensitive-btn i.fa-eye::before {
+  content: "\f070"; /* fa-eye-slash */
+}
+
+/* Moodle shows fa-eye-slash when visible → force to eye */
+#page-login-index .toggle-sensitive-btn i.fa-eye-slash::before {
+  content: "\f06e"; /* fa-eye */
+}
+
+/* Remove underline on index items. Only show on hover */
+.courseindex a {
+    text-decoration: none;
+}
+
+/* Unhide the Quiz Navigation Panel ACS-38*/
+body.path-my.pagelayout-mydashboard.not_siteadmin 
+.drawer-toggler.drawer-right-toggle.ml-auto {
+  display: none !important;
+}
+
+body.not_siteadmin .editmode-switch-form,
+body.not_siteadmin .editmode-switch-form .input-group {
+    display: none !important;
+}
+
+/* END OF RAW SCSS */
