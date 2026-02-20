@@ -1,0 +1,122 @@
+<!-- Welcome Modal -->
+<div id="welcome-modal"
+  style="display: none; position: fixed; top: 50%; left: 50%; transform: translate(-50%, -50%); background: white; padding: 20px; border-radius: 12px; box-shadow: 0 0 15px #2d2a7b; z-index: 10000; width: 50%; max-width: 90%; text-align: center;">
+  <button id="welcome-modal-close"
+    style="position: absolute; top: 10px; right: 15px; background: transparent; border: none; font-size: 24px; font-weight: bold; cursor: pointer; color: #555;">x</button>
+  <h2 style="color: #2d2a7b; font-weight: bold;">Welcome!</h2>
+  <h4>This video tour will help you get familiar with the AUGMET Learning Hub.
+  </h4>
+  <button id="welcome-play-video-btn"
+    style="padding: 10px 20px; background: #5D57F4; color: #fff; border: none; border-radius: 8px; cursor: pointer; margin-top: 10px;">Play
+    Video</button> <button id="welcome-not-now-btn"
+    style="padding: 10px 20px; background: #999; color: #fff; border: none; border-radius: 8px; cursor: pointer; margin-top: 10px; margin-left: 10px;">Not
+    Now</button>
+</div>
+<!-- Video Modal -->
+<div id="video-modal"
+  style="display: none; position: fixed; top: 0; left: 0; width: 100vw; height: 100vh; background: rgba(0,0,0,0.6); z-index: 10001; justify-content: center; align-items: center; overflow: hidden;">
+  <div
+    style="position: relative; width: 90%; max-width: 1280px; background: white; padding: 20px; border-radius: 12px; box-shadow: 0 0 15px rgba(0,0,0,0.3); text-align: center;">
+    <button id="video-modal-close"
+      style="position: absolute; top: 10px; right: 15px; background: transparent; border: none; font-size: 24px; font-weight: bold; cursor: pointer; color: #555;">x</button>
+    <!-- Responsive Player Container -->
+    <div
+      style="position: relative; width: 100%; padding-bottom: 56.25%; height: 0; margin-top: 40px;">
+      <iframe id="video-player"
+        style="position: absolute; width: 100%; height: 100%; left: 0; top: 0;"
+        src="https://www.youtube-nocookie.com/embed/KmF_jWEXbUE?amp;rel=0&amp;modestbranding=1&amp;playsinline=1"
+        frameborder="0" allow="autoplay; fullscreen; encrypted-media"
+        allowfullscreen="allowfullscreen">
+      </iframe></div>
+  </div>
+</div>
+<!-- Dashboard Button -->
+<div id="welcome-button"
+  style="display: none; margin: 20px 0; text-align: end;"><button
+    id="dashboard-play-btn"
+    style="padding: 10px 20px; background: #5D57F4; color: #fff; border: none; border-radius: 8px; cursor: pointer;">Video
+    Tour</button></div>
+<p>
+  <script>
+    document.addEventListener("DOMContentLoaded", () => {
+      const CURRENT_USER_ID = M && M.cfg && M.cfg.userId ? M.cfg.userId :
+        null;
+
+      // --- Cookies ---
+      function setCookie(name, value, days) {
+        const d = new Date();
+        d.setTime(d.getTime() + (days * 24 * 60 * 60 * 1000));
+        document.cookie = name + "=" + value + ";expires=" + d
+          .toUTCString() + ";path=/";
+      }
+
+      function getCookie(name) {
+        const cname = name + "=";
+        const decodedCookie = decodeURIComponent(document.cookie);
+        const ca = decodedCookie.split(';');
+        for (let c of ca) {
+          c = c.trim();
+          if (c.indexOf(cname) === 0) {
+            return c.substring(cname.length);
+          }
+        }
+        return "";
+      }
+
+      // --- Elements ---
+      const welcomeModal = document.getElementById("welcome-modal");
+      const welcomeCloseBtn = document.getElementById(
+        "welcome-modal-close");
+      const welcomePlayBtn = document.getElementById(
+        "welcome-play-video-btn");
+      const welcomeNotNowBtn = document.getElementById(
+        "welcome-not-now-btn");
+      const videoModal = document.getElementById("video-modal");
+      const videoCloseBtn = document.getElementById("video-modal-close");
+      const dashboardButtonContainer = document.getElementById(
+        "welcome-button");
+      const dashboardBtn = document.getElementById("dashboard-play-btn");
+      const videoPlayer = document.getElementById("video-player");
+
+      const COOKIE_NAME = "welcomeShown_" + CURRENT_USER_ID;
+
+      if (!getCookie(COOKIE_NAME)) {
+        welcomeModal.style.display = "block";
+      } else {
+        dashboardButtonContainer.style.display = "block";
+      }
+
+      function closeWelcomeModal() {
+        welcomeModal.style.display = "none";
+        setCookie(COOKIE_NAME, "true", 365);
+        dashboardButtonContainer.style.display = "block";
+      }
+
+      function openVideoModal() {
+        videoModal.style.display = "flex";
+        videoPlayer.src = videoPlayer.src.split("?")[0] +
+          "?autoplay=1&rel=0&modestbranding=1&playsinline=1";
+      }
+
+      // --- Event Listeners ---
+      welcomeCloseBtn.addEventListener("click", closeWelcomeModal);
+      welcomeNotNowBtn.addEventListener("click", closeWelcomeModal);
+      welcomePlayBtn.addEventListener("click", () => {
+        closeWelcomeModal();
+        openVideoModal();
+      });
+      dashboardBtn.addEventListener("click", openVideoModal);
+      videoCloseBtn.addEventListener("click", () => {
+        videoModal.style.display = "none";
+        const originalSrc = videoPlayer.src.split("?")[0];
+        videoPlayer.src = "";
+        videoPlayer.src = originalSrc +
+          "?rel=0&modestbranding=1&playsinline=1";
+
+        setCookie(COOKIE_NAME, "true", 365);
+        dashboardButtonContainer.style.display = "block";
+      });
+
+    });
+  </script>
+</p>

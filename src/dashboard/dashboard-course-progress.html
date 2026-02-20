@@ -1,0 +1,225 @@
+<div id="augmet-dashboard-wrapper"
+  style="position: relative; width: 100%; min-height: 200px;"><!-- Loader -->
+  <div id="augmet-dashboard-loader"
+    style="position: absolute; top: 50%; left: 50%; transform: translate(-50%, -50%); font-family: 'Poppins', sans-serif; font-weight: 600; color: #666;">
+    Loading progress...</div>
+  <!-- Dashboard content -->
+  <div id="augmet-progress-dashboard"
+    style="display: none; justify-content: flex-start; align-items: flex-start; gap: 24px; font-family: 'Poppins', sans-serif; width: 100%; box-sizing: border-box; flex-wrap: wrap;">
+    <!-- LEFT: PIE CHART -->
+    <div id="augmet-chart-container"
+      style="flex: 0 0 40%; min-width: 250px; background: linear-gradient(135deg,#0e0c45,#1b1865); color: white; border-radius: 16px; padding: 28px; box-shadow: 0 4px 12px rgba(0,0,0,0.2); text-align: center;">
+      <h4 style="margin-bottom: 20px; color: #ffffff;">Progress Overview</h4>
+      <div
+        style="display: flex; justify-content: center; align-items: center; gap: 30px;">
+        <canvas id="augmet-piechart"
+          style="max-width: 200px; max-height: 200px;"></canvas>
+        <div
+          style="display: flex; flex-direction: column; gap: 10px; font-size: 0.9rem; color: #e2e1ff; text-align: left;">
+          <div style="display: flex; align-items: center; gap: 10px;">
+            <div
+              style="width: 32px; height: 8px; background: #5d57f4; border-radius: 2px;">
+               </div>
+            Completed
+          </div>
+          <div style="display: flex; align-items: center; gap: 10px;">
+            <div
+              style="width: 32px; height: 8px; background: #7c7c7c; border-radius: 2px;">
+               </div>
+            In Progress
+          </div>
+          <div style="display: flex; align-items: center; gap: 10px;">
+            <div
+              style="width: 32px; height: 8px; background: #fff1ed; border-radius: 2px; border: 1px solid rgba(255,255,255,0.3);">
+               </div>
+            Not Started
+          </div>
+        </div>
+      </div>
+    </div>
+    <!-- RIGHT: COURSE PROGRESS -->
+    <div id="augmet-courses-container"
+      style="flex: 1; min-width: 300px; display: flex; flex-direction: column; gap: 12px; max-height: 200px; overflow-y: auto;">
+    </div>
+  </div>
+</div>
+<!-- Chart.js -->
+<p>
+  <script src="https://cdn.jsdelivr.net/npm/chart.js"></script>
+  <script>
+    document.addEventListener('DOMContentLoaded', function() {
+
+      function drawPie(completedCount, inProgressCount, notStartedCount) {
+        const ctx = document.getElementById('augmet-piechart');
+        if (!ctx) return;
+        if (ctx._augmetChart) ctx._augmetChart.destroy();
+
+        ctx._augmetChart = new Chart(ctx, {
+          type: 'doughnut',
+          data: {
+            labels: ['Completed', 'In Progress', 'Not Started'],
+            datasets: [{
+              data: [completedCount, inProgressCount,
+                notStartedCount
+              ],
+              backgroundColor: ['#5d57f4', '#7c7c7c', '#fff1ed'],
+              borderWidth: 0
+            }]
+          },
+          options: {
+            cutout: '70%',
+            plugins: {
+              legend: {
+                display: false
+              }
+            },
+            responsive: true,
+            maintainAspectRatio: true
+          }
+        });
+      }
+
+      function buildCoursesAndStats(coursesData) {
+        const container = document.getElementById(
+          'augmet-courses-container');
+        const dashboard = document.getElementById(
+          'augmet-progress-dashboard');
+        const loader = document.getElementById('augmet-dashboard-loader');
+        if (!container || !dashboard || !loader) return;
+
+        container.innerHTML = '';
+
+        let completedCount = 0,
+          inProgressCount = 0,
+          notStartedCount = 0;
+
+        coursesData.forEach(course => {
+          const pct = Math.max(0, Math.min(100, Number(course.pct) ||
+            0));
+
+          if (pct >= 100) completedCount++;
+          else if (pct > 0) inProgressCount++;
+          else notStartedCount++;
+
+          const row = document.createElement('div');
+          row.style.display = 'grid';
+          row.style.gridTemplateColumns = '1fr auto';
+          row.style.gridTemplateRows = 'auto auto';
+          row.style.gap = '6px 12px';
+          row.style.padding = '8px 12px';
+          row.style.borderRadius = '12px';
+          row.style.background = '#ffffff';
+          row.style.boxShadow = '0 1px 2px rgba(0,0,0,.05)';
+          row.style.fontFamily = 'Poppins';
+
+          const title = document.createElement('div');
+          title.textContent = course.name || 'Unnamed Course';
+          title.style.fontWeight = '600';
+          title.style.color = '#333';
+          title.style.wordBreak = 'break-word';
+
+          const pctLabel = document.createElement('div');
+          pctLabel.textContent = pct + '%';
+          pctLabel.style.textAlign = 'right';
+          pctLabel.style.fontWeight = '600';
+          pctLabel.style.color = '#5d5f7f';
+
+          const barContainer = document.createElement('div');
+          barContainer.style.gridColumn = '1 / 3';
+          barContainer.style.height = '10px';
+          barContainer.style.background = '#eef2ff';
+          barContainer.style.borderRadius = '999px';
+          barContainer.style.position = 'relative';
+          barContainer.style.overflow = 'hidden';
+
+          const barFill = document.createElement('div');
+          barFill.style.position = 'absolute';
+          barFill.style.left = '0';
+          barFill.style.top = '0';
+          barFill.style.height = '100%';
+          barFill.style.width = '0%';
+          barFill.style.background =
+            'linear-gradient(90deg, #5d57f4, #7b7bff)';
+          barFill.style.borderRadius = 'inherit';
+          barFill.style.transition = 'width 1s ease-out';
+
+          barContainer.appendChild(barFill);
+          row.appendChild(title);
+          row.appendChild(pctLabel);
+          row.appendChild(barContainer);
+          container.appendChild(row);
+
+          setTimeout(() => {
+            barFill.style.width = (pct >= 100 ? '100%' : pct + '%');
+          }, 20);
+        });
+
+        drawPie(completedCount, inProgressCount, notStartedCount);
+
+        loader.style.display = 'none';
+        dashboard.style.display = 'flex';
+      }
+
+
+      function loadAugmetProgressFromPage() {
+        const courseCards = document.querySelectorAll('.card.course-card');
+        if (courseCards.length) {
+          const courses = [];
+          courseCards.forEach(card => {
+            const nameSpan = card.querySelector(
+              'a.coursename .multiline span[aria-hidden="true"]');
+            const courseName = nameSpan ? nameSpan.textContent.trim() :
+              'Unnamed Course';
+
+            let pct = 0;
+            const progressSpans = card.querySelectorAll(
+              '.progress-text span');
+            if (progressSpans.length > 1) pct = parseInt(progressSpans[
+              1].textContent) || 0;
+
+            courses.push({
+              name: courseName,
+              pct: pct
+            });
+          });
+
+          buildCoursesAndStats(courses);
+          return true;
+        }
+        return false;
+      }
+
+      function loadWithFallback() {
+        const fallback = [{
+            name: 'AUGMET Support Portal',
+            pct: 50
+          },
+          {
+            name: 'AUGMET: A Quick Overview',
+            pct: 23
+          },
+          {
+            name: 'Release Notes',
+            pct: 0
+          },
+          {
+            name: 'Demo Training Course',
+            pct: 87
+          }
+        ];
+        buildCoursesAndStats(fallback);
+      }
+
+      let attempts = 0;
+      const interval = setInterval(() => {
+        attempts++;
+        if (loadAugmetProgressFromPage()) clearInterval(interval);
+        else if (attempts > 20) {
+          loadWithFallback();
+          clearInterval(interval);
+        }
+      }, 500);
+
+    });
+  </script>
+</p>
