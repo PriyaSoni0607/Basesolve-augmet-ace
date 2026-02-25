@@ -443,4 +443,21 @@ body.not_siteadmin .editmode-switch-form .input-group {
     display: none !important;
 }
 
+body.not_siteadmin.pagelayout-mydashboard #theme_boost-drawers-blocks,
+body.not_siteadmin.pagelayout-mydashboard .drawer-toggler.drawer-right-toggle {
+    display: none !important;
+}
+
+body.not_siteadmin.pagelayout-mydashboard.drawer-open-right {
+    margin-right: 0 !important;
+}
+
+body.not_siteadmin.pagelayout-mydashboard {
+    --drawer-right-width: 0px !important;
+}
+
+body.not_siteadmin.pagelayout-mydashboard #page.drawers {
+    margin-right: 0 !important;
+}
+
 /* END OF RAW SCSS */
