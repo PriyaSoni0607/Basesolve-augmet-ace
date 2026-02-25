@@ -432,12 +432,6 @@ a.coursename:hover span[aria-hidden="true"] {
     text-decoration: none;
 }
 
-/* Unhide the Quiz Navigation Panel ACS-38*/
-body.path-my.pagelayout-mydashboard.not_siteadmin 
-.drawer-toggler.drawer-right-toggle.ml-auto {
-  display: none !important;
-}
-
 body.not_siteadmin .editmode-switch-form,
 body.not_siteadmin .editmode-switch-form .input-group {
     display: none !important;
