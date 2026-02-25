@@ -112,11 +112,17 @@
           row.style.boxShadow = '0 1px 2px rgba(0,0,0,.05)';
           row.style.fontFamily = 'Poppins';
 
-          const title = document.createElement('div');
+          const title = document.createElement('a');
           title.textContent = course.name || 'Unnamed Course';
+          title.href = course.link || '#'; // set course link
+          title.target = '_blank'; // open in new tab
           title.style.fontWeight = '600';
-          title.style.color = '#333';
+          title.style.color = '#000000';
+          title.style.textDecoration = 'none';
           title.style.wordBreak = 'break-word';
+          title.onmouseover = () => title.style.textDecoration =
+            'underline';
+          title.onmouseout = () => title.style.textDecoration = 'none';
 
           const pctLabel = document.createElement('div');
           pctLabel.textContent = pct + '%';
@@ -160,10 +166,10 @@
         dashboard.style.display = 'flex';
       }
 
-
       function loadAugmetProgressFromPage() {
         const courseCards = document.querySelectorAll('.card.course-card');
-        if (courseCards.length) {
+        if (!courseCards.length) return false;
+
           const courses = [];
           courseCards.forEach(card => {
             const nameSpan = card.querySelector(
@@ -174,50 +180,28 @@
             let pct = 0;
             const progressSpans = card.querySelectorAll(
               '.progress-text span');
-            if (progressSpans.length > 1) pct = parseInt(progressSpans[
-              1].textContent) || 0;
+            if (progressSpans.length > 1) pct = parseInt(progressSpans[1]
+              .textContent) || 0;
+
+          const linkElem = card.querySelector('a.coursename');
+          const courseLink = linkElem ? linkElem.href : '#';
 
             courses.push({
               name: courseName,
-              pct: pct
+              pct: pct,
+              link: courseLink
             });
           });
 
           buildCoursesAndStats(courses);
           return true;
-        }
-        return false;
-      }
-
-      function loadWithFallback() {
-        const fallback = [{
-            name: 'AUGMET Support Portal',
-            pct: 50
-          },
-          {
-            name: 'AUGMET: A Quick Overview',
-            pct: 23
-          },
-          {
-            name: 'Release Notes',
-            pct: 0
-          },
-          {
-            name: 'Demo Training Course',
-            pct: 87
-          }
-        ];
-        buildCoursesAndStats(fallback);
       }
 
       let attempts = 0;
       const interval = setInterval(() => {
         attempts++;
         if (loadAugmetProgressFromPage()) clearInterval(interval);
-        else if (attempts > 20) {
-          loadWithFallback();
-          clearInterval(interval);
-        }
+        else if (attempts > 20) clearInterval(interval);
       }, 500);
 
     });
