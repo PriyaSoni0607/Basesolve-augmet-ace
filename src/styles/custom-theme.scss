@@ -3,7 +3,7 @@ body.pagelayout-frontpage.notloggedin a[href*="/login/index.php"] {
   display: none !important;
 }
 
-/*  Safely hide the top white header ribbon on homepage  */
+/*  Safely hide the top white header ribbon on homepage */
 body.pagelayout-frontpage .fixed-top,
 body.pagelayout-frontpage header#page-header,
 body.pagelayout-frontpage .navbar {
@@ -204,7 +204,6 @@ a.btn.btn-primary:hover {
   display: none;
 }
 
-
 /* Course Page Dropdowns: Default state: white background, deep violet border and text */
 .btn-outline-secondary.dropdown-toggle {
   background-color: #ffffff !important;
@@ -241,7 +240,6 @@ a.btn.btn-primary:hover {
   color: #1A184F !important;
 }
 
-
 /* === Course Index Styling for Completion Section as a Button === */
 /* Replace 1606 with the actual module ID for your completion section */
 a.courseindex-link[href="#module-1606"] {
@@ -274,14 +272,6 @@ a.courseindex-link[href="#module-1606"]:hover {
   color: #ffffff !important; /* Ensures text stays visible on blue hover background */
 }
 
-/* remove preferences breadcrumb from my edit profile page */
-.breadcrumb a[href*="preferences.php"] {
-    pointer-events: none;
-    color: #999 !important;
-    text-decoration: none;
-    cursor: default;
-}
-
 /* Hide blog and forum links from profile */
 .profile_tree a[href*="/blog/index.php"],
 .profile_tree a[href*="/mod/forum/user.php"],
@@ -292,8 +282,8 @@ a.courseindex-link[href="#module-1606"]:hover {
 /* Hide the Edit mode toggle form for all users except Admins 
 body:not(.role-admin) form[action*="editmode.php"] {
   display: none !important;
-}
-*/
+} */
+
 
 /* Hide activity count displayed on each section bar of course */
 .section-summary-activities.d-flex > div:first-child {
@@ -353,6 +343,7 @@ a.coursename:hover span[aria-hidden="true"] {
   width: 100%;
   margin-bottom: 10px;
 }
+
 #page .block.block_vexturintroduction {
     border: none;
     border-top: 2px solid #2D2A7B;
@@ -452,6 +443,10 @@ body.not_siteadmin.pagelayout-mydashboard {
 
 body.not_siteadmin.pagelayout-mydashboard #page.drawers {
     margin-right: 0 !important;
+}
+
+body.not_siteadmin .breadcrumb li {
+    display: none !important;
 }
 
 /* END OF RAW SCSS */
