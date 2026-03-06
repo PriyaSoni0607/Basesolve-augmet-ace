@@ -449,4 +449,7 @@ body.not_siteadmin .breadcrumb li {
     display: none !important;
 }
 
+#courseindex .courseindex-item.pageitem:hover .courseindex-link {
+  color: #000 !important;
+}
 /* END OF RAW SCSS */
