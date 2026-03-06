@@ -10,7 +10,7 @@ document.addEventListener("DOMContentLoaded", function () {
     const supportLink = document.createElement("div");
     supportLink.className = "login-support-link";
     supportLink.innerHTML = `
-      <a href="https://traindev.augmet.ai/user/contactsitesupport.php" 
+      <a href="https://augmet.atlassian.net/servicedesk/customer/portal/1/group/515/create/1131"
          target="_blank" 
          rel="noopener">
         Need help? Contact Support
@@ -19,74 +19,75 @@ document.addEventListener("DOMContentLoaded", function () {
     loginForm.appendChild(supportLink);
   }
 
-  /* =========================================
-     SUPPORT PAGE LOGIC
-     ========================================= */
-
-  if (window.location.pathname.includes("/user/contactsitesupport.php")) {
-
-    const header = document.querySelector(".page-header-headings");
-
-    if (header && !header.querySelector(".custom-support-subtitle")) {
-      const subtitle = document.createElement("h2");
-      subtitle.className = "h4 mb-1 custom-support-subtitle";
-      subtitle.textContent = "We're here to help";
-      header.prepend(subtitle);
-    }
-
-    const defaultText =
-      "I would like to register on the ACE Learning Hub. Can you please help me?";
-
-    const tryPrefill = setInterval(function () {
-
-      const messageField =
-        document.querySelector('textarea[name="message"]') ||
-        document.querySelector('textarea[name="body"]') ||
-        document.querySelector("form textarea");
-
-      if (!messageField) return;
-
-      clearInterval(tryPrefill);
-
-      if (!messageField.value.trim()) {
-        messageField.value = defaultText;
-        messageField.dispatchEvent(new Event("input", { bubbles: true }));
-        messageField.dispatchEvent(new Event("change", { bubbles: true }));
-      }
-
-      messageField.addEventListener("keydown", function () {
-        if (this.value === defaultText) {
-          this.value = "";
-        }
-      });
-
-      messageField.addEventListener("focus", function () {
-        const link = document.querySelector(".login-support-link");
-        if (link) link.style.display = "none";
-      });
-
-    }, 300);
-  }
-
   /* ===============================
      OPEN INDEX AFTER LOGOUT-LOGIN
      =============================== */
 
-  const openDrawer = () => {
-    const drawer = document.getElementById("theme_boost-drawers-courseindex");
-    const button = document.querySelector(
-      'button[data-target="theme_boost-drawers-courseindex"][data-action="toggle"]'
-    );
+  const DRAWER_ID = "theme_boost-drawers-courseindex";
+  const TOGGLE_SELECTOR = 'button[data-target="theme_boost-drawers-courseindex"][data-action="toggle"]';
 
-    if (!drawer || !button) return;
+  const cameFromLogin = document.referrer.includes('/login/index.php');
 
-    if (!drawer.classList.contains("show")) {
-      button.click();
-      drawerObserver.disconnect();
-    }
+  if (cameFromLogin) {
+    sessionStorage.setItem("justLoggedIn", "true");
+  }
+
+  const shouldOpen = sessionStorage.getItem("justLoggedIn") === "true";
+
+  if (shouldOpen) {
+    const tryOpenDrawer = () => {
+      const drawer = document.getElementById(DRAWER_ID);
+      const button = document.querySelector(TOGGLE_SELECTOR);
+
+      if (!drawer || !button) return;
+
+      if (!drawer.classList.contains("show")) {
+        button.click();
+      }
+
+      sessionStorage.removeItem("justLoggedIn");
+      observer.disconnect();
+    };
+
+    const observer = new MutationObserver(tryOpenDrawer);
+    observer.observe(document.body, { childList: true, subtree: true });
+
+    setTimeout(tryOpenDrawer, 800);
+  }
+
+  /* ========================================= 
+     Hover + tooltip + highlight for course index 
+     ========================================== */
+
+  const attachDelegatedHover = () => {
+    const container = document.getElementById("courseindex");
+    if (!container || container.dataset.hoverReady) return;
+
+    container.dataset.hoverReady = "true";
+
+    container.addEventListener("mouseover", function (e) {
+      const row = e.target.closest(".courseindex-item.d-flex");
+      if (!row) return;
+
+      const link = row.querySelector(".courseindex-link");
+      if (link && !link.title) {
+        link.title = link.innerText.trim();
+      }
+
+      row.style.backgroundColor = "rgba(13, 110, 253, 0.1)";
+    });
+
+    container.addEventListener("mouseout", function (e) {
+      const row = e.target.closest(".courseindex-item.d-flex");
+      if (!row) return;
+
+      row.style.backgroundColor = "";
+    });
   };
 
-  const drawerObserver = new MutationObserver(openDrawer);
-  drawerObserver.observe(document.body, { childList: true, subtree: true });
+  const hoverObserver = new MutationObserver(attachDelegatedHover);
+  hoverObserver.observe(document.body, { childList: true, subtree: true });
+
+  attachDelegatedHover();
 
 });
