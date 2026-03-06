@@ -274,14 +274,6 @@ a.courseindex-link[href="#module-1606"]:hover {
   color: #ffffff !important; /* Ensures text stays visible on blue hover background */
 }
 
-/* remove preferences breadcrumb from my edit profile page */
-.breadcrumb a[href*="preferences.php"] {
-    pointer-events: none;
-    color: #999 !important;
-    text-decoration: none;
-    cursor: default;
-}
-
 /* Hide blog and forum links from profile */
 .profile_tree a[href*="/blog/index.php"],
 .profile_tree a[href*="/mod/forum/user.php"],
@@ -454,4 +446,7 @@ body.not_siteadmin.pagelayout-mydashboard #page.drawers {
     margin-right: 0 !important;
 }
 
+#courseindex .courseindex-item.pageitem:hover .courseindex-link {
+  color: #000 !important;
+}
 /* END OF RAW SCSS */
