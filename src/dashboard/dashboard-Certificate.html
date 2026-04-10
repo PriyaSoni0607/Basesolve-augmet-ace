@@ -1,0 +1,32 @@
+<div class="augmet-action-container" style="font-family: 'Poppins', sans-serif; width: 100%; overflow: hidden;">
+    <div style="display: grid; grid-template-columns: repeat(auto-fit, minmax(200px, 1fr)); gap: 16px;">
+        <!-- Certificate -->
+        <div id="certificate-container"
+            style="display: none; align-items: center; background: white; border-radius: 12px; overflow: hidden; height: 56px;">
+            <a id="btn-my-certificate-main"
+                style="flex: 1; display: flex; align-items: center; justify-content: center; font-weight: 600; text-decoration: none; color: #1a184f;"
+                href="#"> <i class="fa-solid fa-award fa-lg" style="margin-right: 10px; color: #5d57f4;"></i> My
+                Certificate </a>
+            <div id="certificate-divider" style="display: none; width: 1px; height: 24px; background: #ddd;">
+            </div>
+            <a id="btn-my-certificate-share"
+                style="display: none; width: 56px; align-items: center; justify-content: center; text-decoration: none;"
+                href="https://traindev.augmet.ai/admin/tool/certificate/my.php"> <i class="fa fa-linkedin-square fa-lg"
+                    title="Share on LinkedIn" style="color: #0077b5;"></i> </a>
+        </div>
+        <!-- Feedback --> <a id="feedback-button"
+            style="display: none; align-items: center; justify-content: center; background: white; border-radius: 12px; font-weight: 600; text-decoration: none; color: #1a184f;"
+            href="https://traindev.augmet.ai/mod/questionnaire/complete.php?id=514">
+            <i class="fa-solid fa-comment-dots fa-lg" style="margin-right: 10px; color: #5d57f4;"></i> Feedback </a>
+    </div>
+    <!-- Warning MODAL -->
+    <div id="customWarningModal" class="warn-modal">
+        <div class="warn-box">
+            <div class="warn-icon">⚠️</div>
+            <div class="warn-title">Completion Required</div>
+            <div class="warn-text">You must complete all courses before proceeding!
+            </div>
+            <button class="warn-btn" type="button">Okay</button>
+        </div>
+    </div>
+</div>
