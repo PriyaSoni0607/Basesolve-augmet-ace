@@ -59,6 +59,7 @@ A conditional action container that manages high-stakes rewards and course feedb
 **File:**
 
 src/dashboard/dashboard-Certificate.html
+
 src/scripts/scripts.js (JavaScript Logic)
 
 **Deployment Path:**
@@ -135,11 +136,12 @@ Site administration -> Appearance -> Themes -> Trema -> Advanced -> Raw SCSS
 src/
 ├── dashboard/
 │   ├── dashboard-course-progress.html
-│   └── dashboard-video-tour.html
+│   ├── dashboard-Certificate.html     
+│   └── dashboard-video-tour.html       
 ├── scripts/
-│   └── scripts.js
+│   └── scripts.js                      
 └── styles/
-    └── custom-theme.scss
+    └── custom-theme.scss               
 
 
 
