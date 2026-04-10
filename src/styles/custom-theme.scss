@@ -527,4 +527,100 @@ body .augmet-action-container a:active {
   background: #4742d6;
 }
 
+/* --- Feedback Form --- */
+.path-mod-questionnaire .qn-container, 
+.path-mod-questionnaire .qn-question, 
+.path-mod-questionnaire .qn-answer, 
+.path-mod-questionnaire .no-overflow, 
+.path-mod-questionnaire .generalbox, 
+.path-mod-questionnaire fieldset, 
+.path-mod-questionnaire table, 
+.path-mod-questionnaire tbody, 
+.path-mod-questionnaire tr, 
+.path-mod-questionnaire td,
+.path-mod-questionnaire .qn-info {
+    border: none !important;
+    background: transparent !important;
+    background-color: transparent !important;
+    box-shadow: none !important;
+    border-collapse: collapse !important;
+    padding-left: 0 !important;
+}
+
+.path-mod-questionnaire .surveyTitle, 
+.path-mod-questionnaire .floatprinticon, 
+.path-mod-questionnaire .accesshide {
+    display: none !important;
+}
+
+.path-mod-questionnaire .qn-legend {
+    display: block !important;
+    position: relative;
+    background: transparent !important;
+}
+
+.path-mod-questionnaire .qn-question p {
+    font-family: 'Poppins', sans-serif;
+    color: #5D57F4 !important;
+    font-size: 13px !important;
+    font-weight: 700 !important;
+    text-transform: uppercase;
+    letter-spacing: 1.2px;
+    margin-bottom: 8px !important;
+    display: inline-block !important; 
+}
+
+.path-mod-questionnaire img.req {
+    display: inline-block !important;
+    visibility: visible !important;
+    width: 14px !important;
+    height: auto !important;
+    margin-left: 5px !important;
+    vertical-align: baseline !important;
+    filter: brightness(0.8) contrast(1.2); 
+}
+
+.path-mod-questionnaire .qn-answer {
+    background: #ffffff !important;
+    border-radius: 16px !important;
+    padding: 35px !important;
+    margin: 20px 0 50px 0 !important;
+    border: 1px solid rgba(93, 87, 244, 0.05) !important;
+    box-shadow: 0 10px 30px rgba(93, 87, 244, 0.06), 0 4px 8px rgba(0, 0, 0, 0.02) !important;
+    transition: all 0.4s cubic-bezier(0.165, 0.84, 0.44, 1) !important;
+}
+
+.path-mod-questionnaire input[type="radio"] {
+    appearance: none;
+    -webkit-appearance: none;
+    width: 22px;
+    height: 22px;
+    border: 2px solid #ddd;
+    border-radius: 50%;
+    cursor: pointer;
+    transition: all 0.2s ease;
+    margin: 0 auto !important;
+    display: block;
+    position: relative;
+}
+
+.path-mod-questionnaire input[type="radio"]:checked {
+    border: 6px solid #5D57F4;
+    background: #ffffff;
+}
+
+#qn-11 .qn-answer,
+#qn-12 .qn-answer {
+    display: none !important;
+}
+
+#page-mod-questionnaire-complete .message, 
+#page-mod-questionnaire-preview .message, 
+#page-mod-questionnaire-complete .thankbody, 
+#page-mod-questionnaire-complete .thankhead {
+    border: none !important;
+    border-color: transparent !important;
+    box-shadow: none !important;
+}
+
 /* END OF RAW SCSS */
