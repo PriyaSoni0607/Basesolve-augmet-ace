@@ -527,7 +527,7 @@ body .augmet-action-container a:active {
   background: #4742d6;
 }
 
-/* --- Feedback Form --- */
+/* --- 1. SCOPED RESET --- */
 .path-mod-questionnaire .qn-container, 
 .path-mod-questionnaire .qn-question, 
 .path-mod-questionnaire .qn-answer, 
@@ -538,15 +538,16 @@ body .augmet-action-container a:active {
 .path-mod-questionnaire tbody, 
 .path-mod-questionnaire tr, 
 .path-mod-questionnaire td,
-.path-mod-questionnaire .qn-info {
+.path-mod-questionnaire .qn-info { /* Added qn-info here */
     border: none !important;
     background: transparent !important;
-    background-color: transparent !important;
+    background-color: transparent !important; /* Force background removal */
     box-shadow: none !important;
     border-collapse: collapse !important;
     padding-left: 0 !important;
 }
 
+/* --- 2. HIDING SPECIFIC TEXT BUT KEEPING ICONS --- */
 .path-mod-questionnaire .surveyTitle, 
 .path-mod-questionnaire .floatprinticon, 
 .path-mod-questionnaire .accesshide {
@@ -622,5 +623,41 @@ body .augmet-action-container a:active {
     border-color: transparent !important;
     box-shadow: none !important;
 }
+
+.que.correct .outcome {
+display: none;
+}
+
+.que.incorrect .outcome {
+color: red; 
+}
+
+.que .info .badge.bg-primary.text-light {
+    display: none !important;
+}
+
+.que .info .questionflag, 
+.que .info .grade, 
+.que .info .editquestion, 
+.que .info .badge {
+    display: none !important;
+}
+
+
+.path-mod-quiz .info .no  {
+    font-size: inherit !important; 
+}
+
+.que span.qno {
+    font-size: inherit !important; 
+}
+
+.que .info {
+    background: none;
+    border: none;
+    padding: 0;
+    margin-top: 10px; 
+}
+
 
 /* END OF RAW SCSS */
