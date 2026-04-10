@@ -452,4 +452,79 @@ body.not_siteadmin .breadcrumb li {
 #courseindex .courseindex-item.pageitem:hover .courseindex-link {
   color: #000 !important;
 }
+
+.courseindex-link {
+  text-decoration: none;
+}
+
+.courseindex-link:hover .link-text {
+  text-decoration: underline;
+}
+
+body .augmet-action-container a:focus,
+body .augmet-action-container a:active {
+  outline: none !important;
+  box-shadow: none !important;
+ background-color: white !important;
+}
+
+.warn-modal {
+  position: fixed;
+  inset: 0;
+  background: rgba(0,0,0,0.55);
+  display: none;
+  align-items: center;
+  justify-content: center;
+  z-index: 99999;
+}
+
+.warn-modal.show {
+  display: flex;
+}
+
+.warn-box {
+  width: 340px;
+  background: #fff;
+  border-radius: 14px;
+  padding: 22px;
+  text-align: center;
+  box-shadow: 0 20px 60px rgba(0,0,0,0.25);
+  animation: pop 0.2s ease;
+}
+
+@keyframes pop {
+  from { transform: scale(0.9); opacity: 0; }
+  to { transform: scale(1); opacity: 1; }
+}
+
+.warn-icon {
+  font-size: 40px;
+  margin-bottom: 10px;
+}
+
+.warn-title {
+  font-size: 18px;
+  font-weight: 700;
+  margin-bottom: 8px;
+}
+
+.warn-text {
+  font-size: 14px;
+  color: #555;
+  margin-bottom: 16px;
+}
+
+.warn-btn {
+  background: #5d57f4;
+  color: #fff;
+  border: none;
+  padding: 10px 16px;
+  border-radius: 8px;
+  cursor: pointer;
+}
+
+.warn-btn:hover {
+  background: #4742d6;
+}
+
 /* END OF RAW SCSS */
