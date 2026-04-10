@@ -527,7 +527,7 @@ body .augmet-action-container a:active {
   background: #4742d6;
 }
 
-/* --- 1. SCOPED RESET --- */
+/* --- Feedback Form --- */
 .path-mod-questionnaire .qn-container, 
 .path-mod-questionnaire .qn-question, 
 .path-mod-questionnaire .qn-answer, 
@@ -538,16 +538,15 @@ body .augmet-action-container a:active {
 .path-mod-questionnaire tbody, 
 .path-mod-questionnaire tr, 
 .path-mod-questionnaire td,
-.path-mod-questionnaire .qn-info { /* Added qn-info here */
+.path-mod-questionnaire .qn-info {
     border: none !important;
     background: transparent !important;
-    background-color: transparent !important; /* Force background removal */
+    background-color: transparent !important;
     box-shadow: none !important;
     border-collapse: collapse !important;
     padding-left: 0 !important;
 }
 
-/* --- 2. HIDING SPECIFIC TEXT BUT KEEPING ICONS --- */
 .path-mod-questionnaire .surveyTitle, 
 .path-mod-questionnaire .floatprinticon, 
 .path-mod-questionnaire .accesshide {
