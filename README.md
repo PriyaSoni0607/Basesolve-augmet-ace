@@ -8,8 +8,9 @@ The implementation introduces:
 
 - A Dashboard Course Progress widget with a pie chart and animated progress bars  
 - A Welcome Video Tour modal displayed to first-time users  
-- A Login Support link with an auto-prefilled support message  
-- Automatic opening of the Course Index drawer after login  
+- Automatic opening of the Course Index drawer after login
+- Interactive Course Index tooltips and hover effects for improved navigation accessibility
+- Conditional Certificate Access Control that gates certificates behind 100% course completion
 - Extensive theme customization via Raw SCSS for consistent branding and accessibility  
 - Role-based UI control, hiding the dashboard right drawer for non-admin users  
 
@@ -43,7 +44,30 @@ Dashboard -> Turn Editing On -> Add HTML Block
 
 ---
 
-### 2. Welcome Video Tour Modal
+### 2. Certificate & Feedback Action Bar
+
+A conditional action container that manages high-stakes rewards and course feedback based on real-time progress validation.
+
+**Displays:**
+
+- Dynamic Certificate Button: Automatically identifies the user's enrolled course and routes the "My Certificate" button to the corresponding activity URL.
+- Conditional LinkedIn Integration: The LinkedIn share button remains hidden by default and is only injected into the UI once all assigned courses reach 100% completion.
+- LinkedIn Share Integration: Appears only upon completion to allow social sharing of achievements.
+- Feedback Link: Provides a quick-access shortcut to the course questionnaire, Hidden by default; automatically appears only when all courses reach 100%.
+- Status Gating & Validation: Implements a strict progress-check; if a user attempts to access rewards while courses are in progress, the script blocks the action and triggers a custom   "Completion Required" modal.
+
+**File:**
+
+src/dashboard/dashboard-Certificate.html
+src/scripts/scripts.js (JavaScript Logic)
+
+**Deployment Path:**
+
+Dashboard -> Turn Editing On -> Add HTML Block
+
+---
+
+### 3. Welcome Video Tour Modal
 
 Provides a guided onboarding experience for new users by displaying a welcome modal on first login.
 
@@ -64,20 +88,20 @@ Dashboard -> Turn Editing On -> Add HTML Block
 
 ---
 
-### 3. Login Support & Drawer Script
+### 4. Script
 
 Enhances the login and support experience and improves navigation usability.
 
 **Adds:**
 
 - “Need help? Contact Support” link on the login page
-- Custom subtitle on the support page
-- Auto-prefilled support message text
+- Adds interactive hover highlighting and dynamic tooltips
 - Automatically opens the Course Index drawer after login
+- Added Certificate 
 
 **File:**
 
-src/scripts/login-support-and-drawer.js
+src/scripts/scripts.js
 
 **Deployment Path:**
 
@@ -86,7 +110,7 @@ Site administration -> Appearance -> Additional HTML -> Before BODY is closed
 
 ---
 
-### 4. Theme Customization (Raw SCSS)
+### 5. Theme Customization (Raw SCSS)
 
 Provides consistent branding and UI improvements across the Moodle site.
 
@@ -113,7 +137,7 @@ src/
 │   ├── dashboard-course-progress.html
 │   └── dashboard-video-tour.html
 ├── scripts/
-│   └── login-support-and-drawer.js
+│   └── scripts.js
 └── styles/
     └── custom-theme.scss
 
