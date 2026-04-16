@@ -111,7 +111,8 @@ document.addEventListener("DOMContentLoaded", function () {
   const courseCertMap = {
     "Germline Exome Analysis": "https://traindev.augmet.ai/course/section.php?id=222",
     "Somatic Exome Analysis": "https://traindev.augmet.ai/course/section.php?id=158",
-    "Whole Exome Analysis": "https://traindev.augmet.ai/course/section.php?id=232"
+    "Whole Exome Analysis": "https://traindev.augmet.ai/course/section.php?id=232",
+    "Non-Invasive Prenatal Screening (NIPS)": "https://traindev.augmet.ai/course/section.php?id=234"
   };
 
   /* =========================
@@ -198,6 +199,14 @@ document.addEventListener("DOMContentLoaded", function () {
 
     if (!isDashboardComplete) {
       showWarning();
+      return;
+    }
+
+    const hasWholeExome = courses.some(c => c.name === "Whole Exome Analysis");
+    const hasNIPS = courses.some(c => c.name === "Non-Invasive Prenatal Screening (NIPS)");
+
+    if (hasWholeExome && hasNIPS) {
+      window.open("https://traindev.augmet.ai/course/section.php?id=232", "_blank");
       return;
     }
 
