@@ -1,0 +1,121 @@
+<div class="progress-container">
+  <div class="progress-card" style="text-align: center; flex: 1;">
+    <div class="icon-with-number"
+      style="display: flex; align-items: center; justify-content: center; gap: 10px; margin-bottom: 5px;">
+      <i class="fas fa-book" style="color: #5d57f4; font-size: 1.8rem;"></i>
+      <h3 id="total-courses" class="mb-0"
+        style="color: #ffffff; font-size: 1.8rem; font-weight: bold; margin: 0;">
+        0</h3>
+    </div>
+    <div><a class="mb-0"
+        style="color: #ffffff; text-decoration: none; font-size: 0.9rem;"
+        href="https://traindev.augmet.ai/my/courses.php">Courses Enrolled</a>
+    </div>
+  </div>
+  <div class="progress-card" style="text-align: center; flex: 1;">
+    <div class="icon-with-number"
+      style="display: flex; align-items: center; justify-content: center; gap: 10px; margin-bottom: 5px;">
+      <i class="fa-solid fa-circle-check"
+        style="color: #5d57f4; font-size: 1.8rem;"></i>
+      <h3 id="completed-courses" class="mb-0"
+        style="color: #ffffff; font-size: 1.8rem; font-weight: bold; margin: 0;">
+        0</h3>
+    </div>
+    <div><a class="mb-0"
+        style="color: #ffffff; text-decoration: none; font-size: 0.9rem;"
+        href="https://traindev.augmet.ai/my/courses.php">Courses Completed</a>
+    </div>
+  </div>
+  <div class="progress-card" style="text-align: center; flex: 1;">
+    <div class="icon-with-number"
+      style="display: flex; align-items: center; justify-content: center; gap: 10px; margin-bottom: 5px;">
+      <i class="fas fa-chart-line"
+        style="color: #5d57f4; font-size: 1.8rem;"></i>
+      <h3 id="avg-grade" class="mb-0"
+        style="color: #ffffff; font-size: 1.8rem; font-weight: bold; margin: 0;">
+        0</h3>
+    </div>
+    <div><a class="mb-0"
+        style="color: #ffffff; text-decoration: none; font-size: 0.9rem;"
+        href="https://traindev.augmet.ai/grade/report/overview/index.php">Average
+        Grade</a></div>
+  </div>
+</div>
+<p><iframe id="grade-fetcher" style="display: none;"
+    src="https://traindev.augmet.ai/grade/report/overview/index.php"></iframe>
+</p>
+<p>
+  <script>
+    document.addEventListener("DOMContentLoaded", function() {
+      let attempts = 0;
+      const MAX_ATTEMPTS = 40;
+
+      function updateDashboardprogress() {
+        const coursesView = document.querySelector(
+          '[data-region="courses-view"]');
+        const cards = document.querySelectorAll('.card.course-card');
+
+        if (cards.length > 0) {
+          let total = coursesView ? parseInt(coursesView.getAttribute(
+            'data-totalcoursecount')) : cards.length;
+          let completed = 0;
+
+          cards.forEach(card => {
+            const progressSpan = card.querySelector(
+              '.progress-text span:not(.visually-hidden)');
+            let progressValue = progressSpan ? parseInt(progressSpan
+              .innerText.trim()) : 0;
+            if (progressValue >= 100) completed++;
+          });
+
+          document.getElementById("total-courses").innerText = total;
+          document.getElementById("completed-courses").innerText =
+            completed;
+        } else if (attempts < MAX_ATTEMPTS) {
+          attempts++;
+          setTimeout(updateDashboardprogress, 500);
+          return;
+        }
+
+        const iframe = document.getElementById('grade-fetcher');
+        try {
+          const iframeDoc = iframe.contentDocument || iframe.contentWindow
+            .document;
+          const gradeTable = iframeDoc.getElementById('overview-grade');
+
+          if (gradeTable) {
+            const rows = gradeTable.querySelectorAll(
+              'tbody tr:not(.emptyrow)');
+            let totalGradeSum = 0;
+            let countWithGrades = 0;
+
+            rows.forEach(row => {
+              const gradeCell = row.cells[1];
+              if (gradeCell) {
+                const gradeText = gradeCell.innerText.trim();
+                if (gradeText !== "-" && !isNaN(parseFloat(
+                    gradeText))) {
+                  totalGradeSum += parseFloat(gradeText);
+                  countWithGrades++;
+                }
+              }
+            });
+
+            if (countWithGrades > 0) {
+              const finalAvg = (totalGradeSum / countWithGrades).toFixed(2);
+              document.getElementById("avg-grade").innerText = finalAvg;
+            }
+          }
+        } catch (e) {
+          console.log("Syncing grades...");
+        }
+      }
+
+      const iframe = document.getElementById('grade-fetcher');
+      if (iframe) iframe.onload = updateDashboardprogress;
+
+      updateDashboardprogress();
+      setTimeout(updateDashboardprogress, 3000);
+    });
+  </script>
+</p>
