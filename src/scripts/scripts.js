@@ -26,15 +26,11 @@ document.addEventListener("DOMContentLoaded", function () {
   const DRAWER_ID = "theme_boost-drawers-courseindex";
   const TOGGLE_SELECTOR = 'button[data-target="theme_boost-drawers-courseindex"][data-action="toggle"]';
 
-  const cameFromLogin = document.referrer.includes('/login/index.php');
-
-  if (cameFromLogin) {
+  if (document.referrer.includes('/login/index.php')) {
     sessionStorage.setItem("justLoggedIn", "true");
   }
 
-  const shouldOpen = sessionStorage.getItem("justLoggedIn") === "true";
-
-  if (shouldOpen) {
+  if (sessionStorage.getItem("justLoggedIn") === "true") {
     const tryOpenDrawer = () => {
       const drawer = document.getElementById(DRAWER_ID);
       const button = document.querySelector(TOGGLE_SELECTOR);
@@ -46,19 +42,17 @@ document.addEventListener("DOMContentLoaded", function () {
       }
 
       sessionStorage.removeItem("justLoggedIn");
-      observer.disconnect();
+      drawerObserver.disconnect();
     };
 
-    const observer = new MutationObserver(tryOpenDrawer);
-    observer.observe(document.body, { childList: true, subtree: true });
-
+    const drawerObserver = new MutationObserver(tryOpenDrawer);
+    drawerObserver.observe(document.body, { childList: true, subtree: true });
     setTimeout(tryOpenDrawer, 800);
   }
 
   /* ========================================= 
-     Hover + tooltip + highlight for course index 
+     HOVER + HIGHLIGHT FOR COURSE INDEX 
      ========================================== */
-
   const attachDelegatedHover = () => {
     const container = document.getElementById("courseindex");
     if (!container || container.dataset.hoverReady) return;
@@ -69,24 +63,17 @@ document.addEventListener("DOMContentLoaded", function () {
       const row = e.target.closest(".courseindex-item.d-flex");
       if (!row) return;
 
-    const link = row.querySelector(".courseindex-link");
+      const link = row.querySelector(".courseindex-link");
       if (link) {
         const textSpan = link.querySelector('.link-text');
-        if (textSpan) {
-          link.title = textSpan.textContent.trim();
-        } else {
-          link.title = link.innerText.trim();
-        }
+        link.title = textSpan ? textSpan.textContent.trim() : link.innerText.trim();
       }
-
       row.style.backgroundColor = "rgba(13, 110, 253, 0.1)";
     });
 
     container.addEventListener("mouseout", function (e) {
       const row = e.target.closest(".courseindex-item.d-flex");
-      if (!row) return;
-
-      row.style.backgroundColor = "";
+      if (row) row.style.backgroundColor = "";
     });
   };
 
@@ -98,127 +85,90 @@ document.addEventListener("DOMContentLoaded", function () {
   /* =========================================
      CERTIFICATE ACCESS CONTROL 
   ========================================= */
-  const certificateContainer = document.getElementById('certificate-container');
+
   const certificateBtn = document.getElementById('btn-my-certificate-main');
-  const shareBtn = document.getElementById('btn-my-certificate-share');
-  const feedbackBtn = document.getElementById('feedback-button');
-  const divider = document.getElementById('certificate-divider');
-  const modal = document.getElementById('customWarningModal');
+  if (certificateBtn) {
+    const certificateContainer = document.getElementById('certificate-container');
+    const shareBtn = document.getElementById('btn-my-certificate-share');
+    const feedbackBtn = document.getElementById('feedback-button');
+    const divider = document.getElementById('certificate-divider');
+    const modal = document.getElementById('customWarningModal');
 
-  if (!certificateBtn) return;
+    //ADDED the Support Portal to the map
+    const courseCertMap = {
+      "Germline Exome Analysis": "https://ace.augmet.ai/course/section.php?id=437",
+      "Somatic Exome Analysis": "https://ace.augmet.ai/course/section.php?id=430",
+      "Whole Exome Analysis": "https://ace.augmet.ai/course/section.php?id=438",
+      "Non-Invasive Prenatal Screening (NIPS)": "https://ace.augmet.ai/course/section.php?id=439",
+      "AUGMET Support Portal": "https://ace.augmet.ai/course/section.php?id=525"
+    };
 
-  // Map course names → certificate URLs
-  const courseCertMap = {
-    "Germline Exome Analysis": "https://traindev.augmet.ai/course/section.php?id=222",
-    "Somatic Exome Analysis": "https://traindev.augmet.ai/course/section.php?id=158",
-    "Whole Exome Analysis": "https://traindev.augmet.ai/course/section.php?id=232",
-    "Non-Invasive Prenatal Screening (NIPS)": "https://traindev.augmet.ai/course/section.php?id=234"
-  };
+    const getCourses = () => {
+      const cards = document.querySelectorAll('.card.course-card');
+      if (!cards.length) return [];
+      return [...cards].map(card => {
+        const titleSpan = card.querySelector('.coursename .multiline span[aria-hidden="true"]');
+        const progressText = card.querySelector('.progress-text')?.innerText || '0';
+        return {
+          name: titleSpan ? titleSpan.textContent.trim() : 'Unnamed Course',
+          progress: parseInt(progressText.match(/\d+/) || 0)
+        };
+      });
+    };
 
-  /* =========================
-     GET COURSE DATA (NAME + PROGRESS)
-  ========================= */
+    const updateUI = () => {
+      const courses = getCourses();
+      if (!courses.length) return;
+      const completed = courses.every(c => c.progress >= 100);
+      if (certificateContainer) certificateContainer.style.display = 'flex';
+      if (shareBtn) shareBtn.style.display = completed ? 'flex' : 'none';
+      if (feedbackBtn) feedbackBtn.style.display = completed ? 'flex' : 'none';
+      if (divider) divider.style.display = completed ? 'block' : 'none';
+    };
 
-  const getCourses = () => {
-    const cards = document.querySelectorAll('.card.course-card');
-    if (!cards.length) return [];
+    const uiObserver = new MutationObserver(updateUI);
+    uiObserver.observe(document.body, { childList: true, subtree: true });
+    updateUI();
 
-    return [...cards].map(card => {
-      const titleSpan = card.querySelector('.coursename .multiline span[aria-hidden="true"]');
-      let name = titleSpan ? titleSpan.textContent.trim() : 'Unnamed Course';
+    modal?.querySelector('.warn-btn')?.addEventListener('click', () => modal.classList.remove('show'));
+    modal?.addEventListener('click', e => { if (e.target === modal) modal.classList.remove('show'); });
 
-      const progressText = card.querySelector('.progress-text')?.innerText || '0';
-      const match = progressText.match(/\d+/);
-      const progress = match ? parseInt(match[0]) : 0;
-      return { name, progress };
+    certificateBtn.addEventListener('click', (e) => {
+      e.preventDefault();
+      const courses = getCourses();
+      if (!courses.length) { alert("No assigned courses found."); return; }
+      if (!courses.every(c => c.progress >= 100)) {
+        modal?.classList.add('show');
+      } else {
+        const courseNames = courses.map(c => c.name);
+
+        const mainCourses = [
+          "Germline Exome Analysis",
+          "Somatic Exome Analysis",
+          "Whole Exome Analysis",
+          "Non-Invasive Prenatal Screening (NIPS)"
+        ];
+
+        const hasNIPS = courseNames.includes("Non-Invasive Prenatal Screening (NIPS)");
+        const hasWholeExome = courseNames.includes("Whole Exome Analysis");
+        const hasSupportPortal = courseNames.includes("AUGMET Support Portal");
+        const hasAnyMainCourse = courseNames.some(name => mainCourses.includes(name));
+
+        if (hasNIPS && hasWholeExome) {
+          window.open(courseCertMap["Whole Exome Analysis"], "_blank");
+        }
+        else if (hasSupportPortal && !hasAnyMainCourse) {
+          window.open(courseCertMap["AUGMET Support Portal"], "_blank");
+        }
+        else {
+          const matched = courses.find(c => courseCertMap[c.name]);
+          if (matched) {
+            window.open(courseCertMap[matched.name], "_blank");
+          } else {
+            alert("No certificate mapping found.");
+          }
+        }
+      }
     });
-  };
-
-  const isAllCompleted = (courses) => courses.length > 0 && courses.every(c => c.progress >= 100);
-
-  /* =========================
-     UI UPDATE
-  ========================= */
-
-  const updateUI = () => {
-    const courses = getCourses();
-    if (!courses.length) return;
-
-    const completed = isAllCompleted(courses);
-
-    if (completed) {
-      certificateContainer.style.display = 'flex';
-      shareBtn.style.display = 'flex';
-      feedbackBtn.style.display = 'flex';
-      divider.style.display = 'block';
-    } else {
-      certificateContainer.style.display = 'flex';
-      shareBtn.style.display = 'none';
-      feedbackBtn.style.display = 'none';
-      divider.style.display = 'none';
-    }
-  };
-
-  const waitForCourses = () => {
-    const courses = getCourses();
-    if (courses.length > 0) updateUI();
-    else requestAnimationFrame(waitForCourses);
-  };
-  waitForCourses();
-
-  const observer = new MutationObserver(updateUI);
-  observer.observe(document.body, { childList: true, subtree: true });
-
-  /* =========================
-     MODAL HANDLING 
-  ========================= */
-
-  const warnBtn = modal?.querySelector('.warn-btn');
-  warnBtn?.addEventListener('click', () => modal.classList.remove('show'));
-  modal?.addEventListener('click', e => {
-    if (e.target === modal) modal.classList.remove('show');
-  });
-
-  const showWarning = () => modal?.classList.add('show');
-
-  /* =========================
-     CLICK HANDLER FOR CERTIFICATE 
-  ========================= */
-
-  const handleClick = (e) => {
-    e.preventDefault();
-
-    const courses = getCourses();
-
-    if (!courses.length) {
-      alert("No assigned courses found.");
-      return;
-    }
-
-    const isDashboardComplete = courses.every(c => c.progress >= 100);
-
-    if (!isDashboardComplete) {
-      showWarning();
-      return;
-    }
-
-    const hasWholeExome = courses.some(c => c.name === "Whole Exome Analysis");
-    const hasNIPS = courses.some(c => c.name === "Non-Invasive Prenatal Screening (NIPS)");
-
-    if (hasWholeExome && hasNIPS) {
-      window.open("https://traindev.augmet.ai/course/section.php?id=232", "_blank");
-      return;
-    }
-
-    const matchedCourse = courses.find(c => courseCertMap[c.name]);
-
-    if (matchedCourse) {
-      window.open(courseCertMap[matchedCourse.name], "_blank");
-    } else {
-      alert("No certificate mapping found for your courses.");
-    }
-  };
-
-  certificateBtn.addEventListener('click', handleClick);
-
+  }
 });
