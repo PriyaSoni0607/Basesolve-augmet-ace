@@ -116,7 +116,7 @@ body#page-login-index #region-main {
 
 // :large_blue_diamond: Blue color for Completion Progress block header
 .block_completion_progress h3.card-title {
-  background: linear-gradient(to right, #1A184F, #2D2A7B);
+  background: #1B1860;
   -webkit-background-clip: text;
   -webkit-text-fill-color: transparent;
   background-clip: text;
@@ -133,7 +133,7 @@ body#page-login-index #region-main {
 
 :root {
   --primary: #2d2a7b;
-  --primary-hover: #1a184f;
+  --primary-hover: #1B1860;
 }
 
 .btn.btn-primary,
@@ -172,7 +172,7 @@ a.btn.btn-primary:hover {
   font-size: 1.8em !important;
   text-align: left !important;
 
-  background: linear-gradient(to right, #1A184F, #2D2A7B);
+  background: #1B1860;
   -webkit-background-clip: text;
   -webkit-text-fill-color: transparent;
 
@@ -207,8 +207,8 @@ a.btn.btn-primary:hover {
 /* Course Page Dropdowns: Default state: white background, deep violet border and text */
 .btn-outline-secondary.dropdown-toggle {
   background-color: #ffffff !important;
-  color: #1a184f !important;
-  border-color: #1a184f !important;
+  color:  #1B1860 !important;
+  border-color:  #1B1860 !important;
   font-family: 'Poppins' !important;
 }
 
@@ -217,9 +217,9 @@ a.btn.btn-primary:hover {
 .btn-outline-secondary.dropdown-toggle:focus,
 .btn-outline-secondary.dropdown-toggle:active,
 .btn-outline-secondary.show.dropdown-toggle {
-  background-color: #1A184F !important;
+  background-color:  #1B1860 !important;
   color: #ffffff !important;
-  border-color: #1A184F !important;
+  border-color:  #1B1860 !important;
 }
 
 /* Text within the span follows the same styling */
@@ -231,13 +231,13 @@ a.btn.btn-primary:hover {
 /* Optional: dropdown menu items text and highlight */
 .dropdown-menu a.dropdown-item {
   font-family: 'Poppins' !important;
-  color: #1A184F !important;
+  color:  #1B1860 !important;
 }
 
 .dropdown-menu a.dropdown-item:hover,
 .dropdown-menu a.dropdown-item:focus {
-  background-color: #1a184f !important;
-  color: #1A184F !important;
+  background-color: #1B1860 !important;
+  color: #1B1860 !important;
 }
 
 /* === Course Index Styling for Completion Section as a Button === */
@@ -631,31 +631,59 @@ display: none;
 color: red; 
 }
 
-.que .info .badge.bg-primary.text-light {
-    display: none !important;
+iframe[src*="scribehow.com"] {
+    clip-path: inset(0px 0px 16px 0px);
 }
 
-.que .info .questionflag, 
-.que .info .grade, 
-.que .info .editquestion, 
-.que .info .badge {
-    display: none !important;
+.progress-container {
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+    padding: 20px;
+    background-color:  #1B1860;
+    border-radius: 15px;
+    font-family: sans-serif;
 }
 
-
-.path-mod-quiz .info .no  {
-    font-size: inherit !important; 
+.progress-card {
+    display: flex;
+    padding: 20px 20px; 
+    flex-direction: column;
+    align-items: center;
+    font-family: 'Poppins';
 }
 
-.que span.qno {
-    font-size: inherit !important; 
+.progress-card:not(:last-child) {
+    border-right: none !important; 
+    position: relative; 
 }
 
-.que .info {
-    background: none;
-    border: none;
-    padding: 0;
-    margin-top: 10px; 
+.progress-card:not(:last-child)::after {
+    content: "";
+    position: absolute;
+    right: 0;
+    top: 50%;
+    transform: translateY(-50%); 
+    height: 50px;             
+    width: 0.5px;               
+    background-color: #ffffff; 
+    opacity: 0.6;           
+}
+.progress-value {
+    display: block;
+    font-size: 1.8rem;
+    font-weight: 700;
+    color: #dddaf7;
+    line-height: 1.2;
+}
+
+.progress-label {
+    display: block;
+    color: #ffffff !important;
+    text-decoration: none;
+    font-size: 0.9rem;
+    font-weight: 400;
+    margin-top: 2px;
 }
 
 
