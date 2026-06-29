@@ -1,5 +1,3 @@
-// card view backup 
-
 /* Hide top-right login button on homepage before login (Trema-specific fix) */
 body.pagelayout-frontpage.notloggedin a[href*="/login/index.php"] {
   display: none !important;
@@ -327,6 +325,7 @@ a.coursename:hover span[aria-hidden="true"] {
   border: none !important;
   box-shadow: none !important;
   padding: 0 !important;
+  margin: 0 !important;
   height: 100% !important;
 }
 .block_completion_progress {
@@ -528,7 +527,7 @@ body .augmet-action-container a:active {
   background: #4742d6;
 }
 
-/* --- 1. SCOPED RESET --- */
+/* --- Feedback Form --- */
 .path-mod-questionnaire .qn-container, 
 .path-mod-questionnaire .qn-question, 
 .path-mod-questionnaire .qn-answer, 
@@ -539,16 +538,15 @@ body .augmet-action-container a:active {
 .path-mod-questionnaire tbody, 
 .path-mod-questionnaire tr, 
 .path-mod-questionnaire td,
-.path-mod-questionnaire .qn-info { /* Added qn-info here */
+.path-mod-questionnaire .qn-info {
     border: none !important;
     background: transparent !important;
-    background-color: transparent !important; /* Force background removal */
+    background-color: transparent !important;
     box-shadow: none !important;
     border-collapse: collapse !important;
     padding-left: 0 !important;
 }
 
-/* --- 2. HIDING SPECIFIC TEXT BUT KEEPING ICONS --- */
 .path-mod-questionnaire .surveyTitle, 
 .path-mod-questionnaire .floatprinticon, 
 .path-mod-questionnaire .accesshide {
@@ -633,36 +631,10 @@ display: none;
 color: red; 
 }
 
-.que .info .badge.bg-primary.text-light {
-    display: none !important;
-}
-
-.que .info .questionflag, 
-.que .info .grade, 
-.que .info .editquestion, 
-.que .info .badge {
-    display: none !important;
-}
-
-
-.path-mod-quiz .info .no  {
-    font-size: inherit !important; 
-}
-
-.que span.qno {
-    font-size: inherit !important; 
-}
-
-.que .info {
-    background: none;
-    border: none;
-    padding: 0;
-    margin-top: 10px; 
-}
-
 iframe[src*="scribehow.com"] {
     clip-path: inset(0px 0px 16px 0px);
 }
+
 .progress-container {
     display: flex;
     justify-content: space-between;
@@ -713,308 +685,6 @@ iframe[src*="scribehow.com"] {
     font-weight: 400;
     margin-top: 2px;
 }
-
-
-
-body.not_siteadmin [data-region="popover-region-messages"] {
-  display: none !important;
-}
-
-body {
-    font-size: 15px;
-}
-
-#inst5.block_myoverview.card,
-#inst5.block_myoverview.card .card-body {
-    background: none !important;
-    background-color: transparent !important;
-    border: none !important;
-    box-shadow: none !important;
-}
-
-/* ==========================================================================
-   MODERN COURSE SECTIONS & TABS UI
-   ========================================================================== */
-
-.nav-tabs.more-nav {
-    border-bottom: 2px solid rgba(0,0,0,0.05);
-    gap: 10px;
-    margin-bottom: 2rem !important;
-}
-
-.nav-tabs .nav-link {
-    border: none !important;
-    color: #6a737d !important;
-    font-weight: 600;
-    padding: 0.8rem 1.2rem !important;
-    transition: all 0.3s ease;
-    border-radius: 8px 8px 0 0;
-}
-
-.nav-tabs .nav-link:hover {
-    color: var(--brand-violet) !important;
-    background-color: rgba(93, 87, 244, 0.05) !important;
-}
-
-.nav-tabs .nav-link.active {
-    color: var(--brand-violet) !important;
-    background: transparent !important;
-    border-bottom: 3px solid var(--brand-violet) !important;
-}
-
-.secondary-navigation .nav-tabs .nav-link:focus,
-.secondary-navigation .nav-tabs .nav-link:active,
-.secondary-navigation .nav-tabs .nav-link:focus-visible {
-    outline: none !important;
-    box-shadow: none !important;
-}
-
-#usernavigation .popover-region-toggle,
-#usernavigation .nav-link,
-#usernavigation .btn.dropdown-toggle,
-#usernavigation .btn.dropdown-toggle:focus,
-#usernavigation .btn.dropdown-toggle:active {
-    outline: none !important;
-    box-shadow: none !important;
-}
-
-.moremenu .nav-link:focus, 
-.moremenu .nav-link:active {
-    outline: none !important;
-    box-shadow: none !important;
-}
-
-.course-content ul.topics {
-    list-style: none;
-    padding: 0;
-}
-
-.course-section.section {
-    background: #ffffff;
-    border: 1px solid rgba(0,0,0,0.06) !important;
-    border-radius: 16px !important;
-    margin-bottom: 1.5rem !important;
-    padding: 0 !important;
-    overflow: hidden;
-    transition: box-shadow 0.3s ease, transform 0.3s ease;
-}
-
-.course-section.section:hover {
-    box-shadow: 0 10px 25px rgba(45, 42, 123, 0.08);
-    transform: translateY(-2px);
-}
-
-/* 3. SECTION HEADERS */
-.course-section-header {
-    padding: 1.25rem 1.5rem !important;
-    background: #fcfcfd;
-    border-bottom: 1px solid rgba(0,0,0,0.04);
-    align-items: center;
-}
-
-/* ==========================================================================
-   AUGMET COURSE CARD GRID - 3 COLUMNS PER ROW
-   ========================================================================== */
-
-/* 1. GRID OVERRIDE - Forces 3 columns on desktop */
- .card-grid.row {
-    display: flex !important;
-    flex-wrap: wrap !important;
-    margin-right: -10px !important;
-    margin-left: -10px !important;
-    gap: 0 !important; 
-}
-
-@media (min-width: 992px) {
-     .card-grid.row > .col {
-        flex: 0 0 33.333333% !important;
-        max-width: 33.333333% !important;
-        width: 33.333333% !important;
-        padding: 10px !important;
-        display: block !important;
-    }
-}
-
-@media (min-width: 576px) and (max-width: 991px) {
-     .card-grid.row > .col {
-        flex: 0 0 50% !important;
-        max-width: 50% !important;
-        width: 50% !important;
-    }
-}
-
-@media (max-width: 575px) {
-     .card-grid.row > .col {
-        flex: 0 0 100% !important;
-        max-width: 100% !important;
-        width: 100% !important;
-    }
-}
-
- .course-card {
-    background-color: #ffffff; /* Light mode default */
-    border: 1px solid rgba(0,0,0,0.08) !important;
-    border-radius: 16px !important;
-    overflow: hidden;
-    height: 100% !important;
-    display: flex !important;
-    flex-direction: column !important;
-    transition: transform 0.3s cubic-bezier(0.34, 1.56, 0.64, 1), box-shadow 0.3s ease;
-}
-
- .course-card:hover {
-    transform: translateY(-8px);
-    box-shadow: 0 12px 24px rgba(0,0,0,0.15) !important;
-}
-
- .card-img-top {
-    height: 160px !important;
-    background-size: cover;
-    background-position: center;
-    border-bottom: 1px solid rgba(0,0,0,0.05);
-    transition: transform 0.5s ease;
-}
-
- .course-card:hover .card-img-top {
-    transform: scale(1.05);
-}
-
- .course-info-container {
-    padding: 1.25rem !important;
-    flex-grow: 1;
-}
-
- .coursename {
-    font-size: 1.05rem !important;
-    font-weight: 700 !important;
-    color: #1d2125 !important;
-    line-height: 1.4;
-    display: -webkit-box;
-    -webkit-line-clamp: 2;
-    -webkit-box-orient: vertical;
-    overflow: hidden;
-    text-decoration: none !important;
-}
-
- .card-footer {
-    background-color: transparent !important;
-    border-top: none !important;
-    padding: 0 1.25rem 1.25rem 1.25rem !important;
-}
-
-.sectionname {
-    margin: 0 !important;
-}
-
-.sectionname a {
-    color: #1d2125 !important;
-    font-weight: 700 !important;
-    font-size: 1.2rem !important;
-    text-decoration: none !important;
-}
-
-.section-summary-activities {
-    background: #f8f9fa;
-    padding: 0.8rem 1.5rem !important;
-    border-top: 1px solid rgba(0,0,0,0.03);
-    font-size: 0.85rem;
-    font-weight: 600;
-    color: #6a737d;
-}
-
-.section-summary-activities i {
-    color: var(--brand-violet);
-    margin-right: 8px;
-    font-size: 1rem;
-}
-
-.section_goto .btn-icon {
-    background: #ffffff !important;
-    color: #ffffff !important;
-    border-radius: 10px !important;
-    width: 38px;
-    height: 38px;
-    display: flex;
-    align-items: center;
-    justify-content: center;
-    transition: opacity 0.2s;
-}
-
-.section_goto .btn-icon:hover {
-    opacity: 0.9;
-    box-shadow: 0 4px 12px rgba(93, 87, 244, 0.3);
-}
-
-.course-content
- {
-    background: none !important;
-}
-
-.section-item {
-    border: none !important;
-    padding: 0 !important;
-}
-
-#coursecontentcollapseid61 .summarytext > div > div {
-    margin: 0 auto !important;
-    box-shadow: none !important;
-}
-
-.course-card a.coursename,
-.course-card a.coursename:active,
-.course-card a.coursename:focus,
-.course-card a.coursename span {
-    background-color: transparent !important;
-    background: none !important;
-    outline: none !important;
-    box-shadow: none !important;
-    -webkit-tap-highlight-color: transparent !important; 
-    text-decoration: none !important;
-}
-
-.augmet-linear-tracker-container {
-    background: var(--tracker-bg);
-    padding: 1.5rem 1rem;
-    border-radius: 12px;
-    font-family: 'Poppins', sans-serif;
-    margin-bottom: 1rem;
-}
-
-#page-header, 
-#page-content, 
-#region-main {
-    border-radius: 16px;
-}
-
-
-
-/* ==========================================================================
-    DARK THEME
-   ========================================================================== */
-
-/* 1. DESIGN TOKENS (CSS VARIABLES) */
-:root {
-    --primary: #2d2a7b;
-    --primary-hover:  #1B1860;
-    --brand-violet: #5D57F4;
-    --dark-bg: #0b0e14;
-    --dark-surface: #1a1f29;
-    --dark-surface-alt: #161b22;
-    --dark-border: #2d3748;
-    --dark-text: #e2e8f0;
-    --dark-header: #11151c;
-    --dark-input: #0d1117;
-}
-
-/* ==========================================================================
-   AUGMET LEARNING HUB - OPTIMIZED DARK THEME (USER-ONLY)
-   ========================================================================== */
-
-/*body.dark-mode {
-    background-color: var(--dark-bg) !important;
-    color: var(--dark-text) !important;
-}*/
-
 
 
 /* END OF RAW SCSS */
