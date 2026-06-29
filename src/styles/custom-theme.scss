@@ -686,5 +686,8 @@ iframe[src*="scribehow.com"] {
     margin-top: 2px;
 }
 
+body.not_siteadmin [data-region="popover-region-messages"] {
+  display: none !important;
+}
 
 /* END OF RAW SCSS */
